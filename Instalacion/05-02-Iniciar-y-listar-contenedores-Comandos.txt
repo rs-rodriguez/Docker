@@ -1,0 +1,22 @@
+05_02 Iniciar y listar contenedores - Commandos utilizados
+
+# ayuda de comandos para iniciar contenedores
+docker container run --help | more
+
+# listar el directorio raiz de la imagen de ubuntu
+docker container run ubuntu:16.04 ls -la /
+
+# ayuda de comandos de listar los contenedores
+docker container ls --help
+
+# listar contenedores
+docker container ls
+
+# ejecutar el comando top dentro del contenedores
+docker container run ubuntu:16.04 top -b
+
+# ejecutar el comando top dentro del contenedores desligado
+docker container run --detach ubuntu:16.04 top -b
+
+# listar todos los contenedores
+docker container ls -a

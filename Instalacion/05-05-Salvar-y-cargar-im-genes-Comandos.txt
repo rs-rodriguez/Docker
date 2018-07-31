@@ -1,0 +1,7 @@
+05_05 Salvar y cargar imágenes - Commandos utilizados
+
+# ayuda para salvar imágenes
+docker image save --help
+
+# ayuda para cargar imágenes
+docker image load --help

@@ -1,0 +1,12 @@
+﻿04_03 Imágenes y contenedores 
+- Commandos utilizados
+
+# obtener comandos del módulo de contenedores 
+
+docker container --help
+
+ 
+# iniciar el contenedor hello-world
+
+docker container run hello-world
+

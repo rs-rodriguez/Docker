@@ -1,0 +1,13 @@
+04_04 Docker Store - Commandos utilizados
+
+# buscar imágenes de ubuntu
+docker search ubuntu
+
+# descargar imágen de ubuntu 
+docker pull ubuntu:17.04
+
+# descargar imágen de ubuntu
+docker pull ubuntu:16.04
+
+# listar imágenes locales
+docker image ls

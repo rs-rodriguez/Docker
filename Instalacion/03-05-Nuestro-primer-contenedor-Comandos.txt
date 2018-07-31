@@ -1,0 +1,4 @@
+03_05 Nuestro primer contenedor - Commandos utilizados
+
+# primer contenedor
+docker container run hello-world

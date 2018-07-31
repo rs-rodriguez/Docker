@@ -1,0 +1,20 @@
+﻿04_02 Estructura de comandos - Commandos utilizados
+
+
+# ayuda de docker
+
+docker --help | more
+
+ 
+# ayuda del módulo sistema de docker 
+
+docker system --help
+
+
+# información del sistema en docker 
+
+docker system info
+
+
+# información de los recursos de docker
+docker system df

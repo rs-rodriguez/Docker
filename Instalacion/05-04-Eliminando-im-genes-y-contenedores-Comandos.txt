@@ -1,0 +1,7 @@
+05_04 Eliminando imágenes y contenedores - Commandos utilizados
+
+# ayuda para eliminar contenedores
+docker container rm --help
+
+# ayuda para eliminar imágenes
+docker image rm --help

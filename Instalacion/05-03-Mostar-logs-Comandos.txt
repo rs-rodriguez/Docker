@@ -1,0 +1,10 @@
+05_03 Mostar logs - Commandos utilizados
+
+# comandos de ayuda para los logs
+docker container logs --help
+
+# listar contenedores
+docker container ls
+
+# listar contenedores (todos los estados)
+docker container ls --all
