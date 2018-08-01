@@ -181,4 +181,142 @@ docker container ls --help # muestra la ayuda con respecto a ls.
 	docker build -t miweb . # construir
 	docker container run  --name miweb-contenedor -d -p 8080:80 miweb # publicar
 
+#publicar una imagen en docker cloud, docker image tag SOURCE_IMAGE[:TAG] TARGET_IMAGE[:TAG]
+	docker image tag miweb lideralter/miweb
+#Luego nos logueamos en docker, con docker login
+		docker login 
+# pedira el username, password
+# hacer push
+	docker push lideralter/miweb
+# Dockerignore es un fichero que .dockerignore
+	# comment
+		*/temp*
+		*/*/temp*
+		temp?
+		*.md
+		!README.md
+# Subiendo a docker cloud
+# es posible crear aplicaciones desde github, crearndo las aplicaciones en docker cloud
+	docker container run -d -p 80:80 lideralter/gamepink
+# versionar nuestras imagenes
+
+
+# Conectando contenedores, utilizando composer
+# Conectar manualmente
+	docker pull mariadb
+	docker container run --name bd-servidor -e MYSQL_ROOT_PASSWORD=mi-clave -d mariadb
+	docker container inspect bd-servidor | grep IP
+	docker container run --rm --link bd-servidor:mysql -it mariadb /bin/bash
+	mysql -h "$MYSQL_PORT_3306_TCP_ADDR" -P "$MYSQL_PORT_3306_TCP_PORT" -uroot -p"$MYSQL_ENV_MYSQL_ROOT_PASSWORD"
+# Docker compose
+	fichero.yml:
+		version: '3'
+		services:
+		  web:
+			build: .
+			ports:
+			 - "5000:5000"
+			volumes:
+			 - .:/code
+		  redis:
+			image: "redis:alpine"
+	
+# Instalar docker compose 
+	https://docs.docker.com/compose/install/#install-compose - documentacion
+	sudo curl -L https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+	sudo chmod +x /usr/local/bin/docker-compose
+	docker-compose --help | more # ayuda en docker compose
+	docker-compose.yml
+		version: '3'
+		services:
+		  web:
+			image: dockercloud/hello-world
+		  lb:
+			image: dockercloud/haproxy
+			links:
+			  - web
+			volumes:
+			  - /var/run/docker.sock:/var/run/docker.sock
+			ports:
+			 - 80:80
+
+	docker-compose up -d
+	docker-compose ps # listar procesos
+	
+# Escalando servicios
+	docker-compose scale --help
+	docker-compose scale web=4 # deprecate
+	 docker-compose up --scale web=3 -d # new form
+
+
+# Docker register
+# Podemos tener todas las imagenes privadas que podamos decear.
+ docker-compose.yml
+	version: '3'
+
+	services:
+	  registry:
+		 restart: always
+		 image: registry:2
+		 ports:
+		   - 5000:5000
+		 volumes:
+		   - ./data:/var/lib/registry
+# iniciando registry
+	docker-compose up -d
+# Configurando registry al cliente.
+	sudo vim /etc/docker/daemon.json
+	{
+			"insecure-registries": ["192.168.1.104:5000"]
+	}
+
+# reiniciamos docker
+	sudo service docker restart
+	docker info
+	:
+	Insecure Registries:
+		 192.168.1.104:5000
+		 127.0.0.0/8
+# Subimos al docker registry
+	# primero creamos el tag apartir de otra imagen 
+		docker image tag busybox 192.168.1.105:5000/busybox
+	# Luego hacemos un docjer push 
+		docker image push 192.168.1.105:5000/busybox
+
+# Agreagr interface web for docker registry
+docker-compose.yml
+	version: '3'
+	
+	services:
+	  registry:
+		 restart: always
+		 image: registry:2
+		 ports:
+		   - 5000:5000
+		 volumes:
+		   - ./data:/var/lib/registry
+	  web-registry:
+		 restart: always
+		 image: konradkleine/docker-registry-frontend:v2
+		 ports:
+		   - 8080:80
+		 environment:
+		   - ENV_DOCKER_REGISTRY_HOST=192.168.1.105
+		   - ENV_DOCKER_REGISTRY_PORT=5000
+
+
+
+
+	
+	 
+	
+
+	
+
+	
+	
+
+
+
+
 
