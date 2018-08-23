@@ -1,0 +1,27 @@
+version: '3'
+services:
+  wordpress:
+    image: wordpress:latest
+    ports:
+      - 8080:80
+    environment:
+      WORDPRESS_DB_PASSWORD: examplepass
+      WORDPRESS_DB_NAME: wpdb
+      WORDPRESS_TABLE_PREFIX: wp_
+      WORDPRESS_DB_HOST: wordpress_db
+    volumes:
+      - ./wordpress-data:/var/www/html
+      - ./php/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
+  wordpress_db:
+    image: mariadb:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: examplepass
+    volumes:
+      - wordpress-db-data:/var/lib/mysql
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - 8181:80
+volumes:
+    wordpress-db-data:
+      driver: local
